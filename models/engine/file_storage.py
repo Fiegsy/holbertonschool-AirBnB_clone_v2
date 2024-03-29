@@ -1,6 +1,6 @@
-#!/usr/bin/python3
-"""This module defines a class to manage file storage for hbnb clone"""
 import json
+import os
+import uuid  
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -29,7 +29,9 @@ class CustomFileStorage:
         return self.__objects
 
     def new(self, obj):
-        """Adds new object to storage dictionary"""
+        """Adds new object to storage dictionary with a new ID"""
+        if not obj.id:
+            obj.id = str(uuid.uuid4()) 
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
         self.__objects[key] = obj
 
